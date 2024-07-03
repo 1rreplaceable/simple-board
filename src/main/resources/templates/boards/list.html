@@ -9,6 +9,30 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="#">simple-board</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/boards/list">board</a>
+                </li>
+                <!-- 로그인 버튼 -->
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">login</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
 <div class="container mt-5">
     <h2 class="mb-4">게시판 목록</h2>
     <table class="table table-striped">
@@ -21,23 +45,18 @@
         </tr>
         </thead>
         <tbody>
-        <!-- 여기에 반복문을 통해 게시글 목록을 불러올 수 있습니다. -->
-        <tr>
-            <th scope="row">1</th>
-            <td><a href="#">게시글 제목 예시</a></td>
-            <td>작성자</td>
-            <td>YYYY-MM-DD</td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td><a href="#">게시글 제목 예시</a></td>
-            <td>작성자</td>
-            <td>YYYY-MM-DD</td>
+        <!-- Thymeleaf 반복문을 통해 게시글 목록을 불러옵니다. -->
+        <tr th:each="board, iterStat : ${boards}">
+            <th scope="row" th:text="${iterStat.index + 1}"></th>
+            <td><a th:href="@{'/boards/detail/' + ${board.id}}" th:text="${board.title}"></a></td>
+            <td th:text="${board.author}"></td>
+            <td th:text="${board.createdDate}"></td>
         </tr>
         <!-- 반복문 끝 -->
         </tbody>
     </table>
 </div>
+
 <!-- 부트스트랩 JS 및 Popper.js, jQuery 스크립트 링크 -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>

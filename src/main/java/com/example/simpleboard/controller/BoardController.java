@@ -16,6 +16,7 @@ public class BoardController {
 
     @Autowired
     private BoardService boardService;
+
     @GetMapping("/list")
     public String list(Model model) {
         List<Board> boards = boardService.getAllBoards();
